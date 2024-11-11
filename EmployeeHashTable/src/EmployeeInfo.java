@@ -3,6 +3,6 @@ public class EmployeeInfo {
     public String firstName;
     public String lastName;
     public int gender;
-    public int workLoc;
+    public String workLoc;
     public double deductRate;
 }

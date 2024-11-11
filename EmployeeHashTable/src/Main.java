@@ -1,23 +1,15 @@
 import java.util.Scanner;
 
 public class Main {
+
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         
         MyHashTable table = new MyHashTable(10);
 
-        Scanner scanner = new Scanner(System.in);
-
         while(true) {
-            System.out.println("Choose an action:");
-            System.out.println("1. Add a new employee");
-            System.out.println("2. Search for an employee by employee number");
-            System.out.println("3. Remove an employee by employee number");
-            System.out.println("4. Display all employees");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
-
-            int option = scanner.nextInt();
-            scanner.nextLine();
+            int option = homeScreen();
 
             if (option == 1) {
                 System.out.print("Enter employee number: ");
@@ -35,8 +27,7 @@ public class Main {
                 scanner.nextLine();
 
                 System.out.print("Enter work location: ");
-                int workLoc = scanner.nextInt();
-                scanner.nextLine();
+                String workLoc = scanner.nextLine();
 
                 System.out.print("Enter your deduct rate: ");
                 double deductRate = scanner.nextDouble();
@@ -88,13 +79,50 @@ public class Main {
 
                 table.addToTable(newEmployee);
                 System.out.println("Employee added successfully.");
-                break;
+                continue;
             }
-            else if (option == 5) {
+            else if (option == 2) {
+                System.out.print("Enter employee number: ");
+                int empNum = scanner.nextInt();
+                scanner.nextLine();
+
+                EmployeeInfo refNumber = table.getFromTable(empNum);
+                System.out.println("First name: " + refNumber.firstName);
+                System.out.println("Last name: " + refNumber.lastName);
+                System.out.println("Gender: " + refNumber.gender);
+                System.out.println("Work Location: " + refNumber.workLoc);
+                System.out.println("Deduct Rate: " + refNumber.deductRate);
+
+                continue;
+            }
+            
+            else if (option == 3) {
+                System.out.print("Enter employee number: ");
+                int empNum = scanner.nextInt();
+                scanner.nextLine();
+
+                table.removeFromTable(empNum);
+                System.out.println("Employee removed successfully.");
+                continue;
+            }
+
+            else if (option == 4) {
                 System.out.println("Exiting program.");
                 break;
             }
         }
 
+    }
+    public static int homeScreen() {
+        System.out.println("Choose an action:");
+        System.out.println("1. Add a new employee");
+        System.out.println("2. Search for an employee by employee number");
+        System.out.println("3. Remove an employee by employee number");
+        System.out.println("4. Exit");
+        System.out.print("Enter your choice: ");
+
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        return option;
     }
 }

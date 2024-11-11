@@ -60,6 +60,7 @@ public class MyHashTable {
 			}
 		}
 
+		System.out.println("Employee not found.");
 		return(null);
 		
 	}  // end removeFromTable
@@ -76,6 +77,7 @@ public class MyHashTable {
 			}
 		}
 
+		
 		return(null);
 		
 
