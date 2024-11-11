@@ -5,5 +5,4 @@ public class EmployeeInfo {
     public int gender;
     public int workLoc;
     public double deductRate;
-    
 }
