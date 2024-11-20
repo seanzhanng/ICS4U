@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.ems;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,13 +11,23 @@ package com.mycompany.ems;
  */
 public class RemoveEmployee extends javax.swing.JFrame {
 
+    private MyHashTable table;
+    private Homepage homepageFrame;
     /**
      * Creates new form RemoveEmployee
      */
     public RemoveEmployee() {
         initComponents();
     }
-
+    
+    public void setMainHT(MyHashTable refvalForHT) {
+        table = refvalForHT;
+    }
+    
+    public void setHomepage(Homepage refvalForHP) {
+        homepageFrame = refvalForHP;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,18 +111,26 @@ public class RemoveEmployee extends javax.swing.JFrame {
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-        int empNum = Integer.parseInt(EmployeeNumber.getText());
-        // table.removeFromTable(empNum);
+        try {
+            int empNum = Integer.parseInt(EmployeeNumber.getText());
+                if (table.removeFromTable(empNum) != null) {
+                System.out.println("removed!");
 
-        Homepage homepageFrame = new Homepage();
-        homepageFrame.setVisible(true);
+                homepageFrame.setVisible(true);
 
-        this.dispose();
+                this.dispose();
+                }
+                else {
+                JOptionPane.showMessageDialog(null, "Employee does not exist", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
+        }
     }                                            
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-        Homepage homepageFrame = new Homepage();
         homepageFrame.setVisible(true);
 
         this.dispose();

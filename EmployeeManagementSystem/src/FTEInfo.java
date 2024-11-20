@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.ems;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,13 +11,28 @@ package com.mycompany.ems;
  */
 public class FTEInfo extends javax.swing.JFrame {
 
+    private MyHashTable table;
+    private Homepage homepageFrame;
+    private PTE_or_FTE cancelFrame;
     /**
      * Creates new form FTEInfo
      */
     public FTEInfo() {
         initComponents();
     }
-
+    
+    public void setMainHT(MyHashTable refvalForHT) {
+        table = refvalForHT;
+    }
+    
+    public void setHomepage(Homepage refvalForHP) {
+        homepageFrame = refvalForHP;
+    }
+    
+    public void setCancel(PTE_or_FTE refVal) {
+        cancelFrame = refVal;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,6 +42,7 @@ public class FTEInfo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
+        MaleFemaleGroup = new javax.swing.ButtonGroup();
         SubmitCancelPanel = new javax.swing.JPanel();
         SubmitButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
@@ -38,13 +55,14 @@ public class FTEInfo extends javax.swing.JFrame {
         LastNameLable = new javax.swing.JLabel();
         LastName = new javax.swing.JTextField();
         GenderLabel = new javax.swing.JLabel();
-        Gender = new javax.swing.JTextField();
         WorkLocationLabel = new javax.swing.JLabel();
         WorkLocation = new javax.swing.JTextField();
         DeductRateLabel = new javax.swing.JLabel();
         DeductRate = new javax.swing.JTextField();
         YearlySalaryLabel = new javax.swing.JLabel();
         YearlySalary = new javax.swing.JTextField();
+        FemaleButton = new javax.swing.JRadioButton();
+        MaleButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,56 +88,116 @@ public class FTEInfo extends javax.swing.JFrame {
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Full-Time Employee");
 
-        InputPanel.setLayout(new java.awt.GridLayout(7, 2, 10, 10));
-
         EmployeeNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         EmployeeNumberLabel.setText("Employee Number");
-        InputPanel.add(EmployeeNumberLabel);
 
         EmployeeNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(EmployeeNumber);
 
         FirstNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FirstNameLabel.setText("First Name");
-        InputPanel.add(FirstNameLabel);
 
         FirstName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(FirstName);
 
         LastNameLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LastNameLable.setText("Last Name");
-        InputPanel.add(LastNameLable);
 
         LastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(LastName);
 
         GenderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         GenderLabel.setText("Gender");
-        InputPanel.add(GenderLabel);
-
-        Gender.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(Gender);
 
         WorkLocationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         WorkLocationLabel.setText("Work Location");
-        InputPanel.add(WorkLocationLabel);
 
         WorkLocation.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(WorkLocation);
 
         DeductRateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DeductRateLabel.setText("Deduct Rate");
-        InputPanel.add(DeductRateLabel);
 
         DeductRate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(DeductRate);
 
         YearlySalaryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         YearlySalaryLabel.setText("Yearly Salary");
-        InputPanel.add(YearlySalaryLabel);
 
         YearlySalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(YearlySalary);
+
+        MaleFemaleGroup.add(FemaleButton);
+        FemaleButton.setText("Female");
+
+        MaleFemaleGroup.add(MaleButton);
+        MaleButton.setText("Male");
+
+        javax.swing.GroupLayout InputPanelLayout = new javax.swing.GroupLayout(InputPanel);
+        InputPanel.setLayout(InputPanelLayout);
+        InputPanelLayout.setHorizontalGroup(
+            InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InputPanelLayout.createSequentialGroup()
+                .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(MaleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FemaleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(InputPanelLayout.createSequentialGroup()
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InputPanelLayout.createSequentialGroup()
+                        .addComponent(EmployeeNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(EmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InputPanelLayout.createSequentialGroup()
+                        .addComponent(FirstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InputPanelLayout.createSequentialGroup()
+                        .addComponent(LastNameLable, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InputPanelLayout.createSequentialGroup()
+                        .addComponent(WorkLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(WorkLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InputPanelLayout.createSequentialGroup()
+                        .addComponent(DeductRateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(DeductRate, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InputPanelLayout.createSequentialGroup()
+                        .addComponent(YearlySalaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(YearlySalary, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        InputPanelLayout.setVerticalGroup(
+            InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InputPanelLayout.createSequentialGroup()
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EmployeeNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FirstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LastNameLable, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GenderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FemaleButton)
+                    .addComponent(MaleButton))
+                .addGap(10, 10, 10)
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(WorkLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WorkLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DeductRateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DeductRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(InputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(YearlySalaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(YearlySalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,7 +212,7 @@ public class FTEInfo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(SubmitCancelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(InputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(56, 56, 56))))
         );
         layout.setVerticalGroup(
@@ -154,27 +232,40 @@ public class FTEInfo extends javax.swing.JFrame {
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-        FTE fte = new FTE();
-        fte.empNum = Integer.parseInt(EmployeeNumber.getText());
-        fte.firstName = FirstName.getText();
-        fte.lastName = LastName.getText();
-        fte.gender = Integer.parseInt(Gender.getText());
-        fte.workLoc = WorkLocation.getText();
-        fte.deductRate = Double.parseDouble(DeductRate.getText());
-        fte.yearlySalary = Double.parseDouble(YearlySalary.getText());
+        try {
+            FTE fte = new FTE();
+            fte.empNum = Integer.parseInt(EmployeeNumber.getText());
+            if (table.getFromTable(fte.empNum) != null) {
+                JOptionPane.showMessageDialog(null, "Employee already exists!", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }            
+            fte.firstName = FirstName.getText();
+            fte.lastName = LastName.getText();
+            if (MaleButton.isSelected()) {
+                fte.gender = "Male";
+            }
+            if (FemaleButton.isSelected()) {
+                fte.gender = "Female";
+            }
+            fte.workLoc = WorkLocation.getText();
+            fte.deductRate = Double.parseDouble(DeductRate.getText());
+            fte.yearlySalary = Double.parseDouble(YearlySalary.getText());
 
-        // table.addToTable(fte);
-        
-        Homepage homepageFrame = new Homepage();
-        homepageFrame.setVisible(true);
-        
-        this.dispose();
+            table.addToTable(fte);
+
+            homepageFrame.setVisible(true);
+            System.out.println("added FTE!");
+
+            this.dispose();
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
+        }
     }                                            
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-        Homepage homepageFrame = new Homepage();
-        homepageFrame.setVisible(true);
+        cancelFrame.setVisible(true);
         
         this.dispose();
     }                                            
@@ -220,13 +311,15 @@ public class FTEInfo extends javax.swing.JFrame {
     private javax.swing.JLabel DeductRateLabel;
     private javax.swing.JTextField EmployeeNumber;
     private javax.swing.JLabel EmployeeNumberLabel;
+    private javax.swing.JRadioButton FemaleButton;
     private javax.swing.JTextField FirstName;
     private javax.swing.JLabel FirstNameLabel;
-    private javax.swing.JTextField Gender;
     private javax.swing.JLabel GenderLabel;
     private javax.swing.JPanel InputPanel;
     private javax.swing.JTextField LastName;
     private javax.swing.JLabel LastNameLable;
+    private javax.swing.JRadioButton MaleButton;
+    private javax.swing.ButtonGroup MaleFemaleGroup;
     private javax.swing.JButton SubmitButton;
     private javax.swing.JPanel SubmitCancelPanel;
     private javax.swing.JLabel Title;

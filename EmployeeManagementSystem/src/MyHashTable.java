@@ -20,6 +20,7 @@ public class MyHashTable {
 	// a reference value pointing to a Employee.
 
 	public ArrayList<EmployeeInfo>[] buckets;
+	public int numInHashTable;
 
 	
 	// CONSTRUCTOR
@@ -34,9 +35,13 @@ public class MyHashTable {
 		for (int i = 0; i < howManyBuckets; i++) {
 			buckets[i] = new ArrayList();  // Instantiate the ArrayList for bucket i.
 		}
+		numInHashTable = 0;
 	}
 
-
+	public int getNumInHashTable() {
+		return numInHashTable;
+	}
+        
 	// METHODS
 
 	public int calcBucket(int sN) {
@@ -54,6 +59,7 @@ public class MyHashTable {
 		// CODE GOES HERE
 		int whichBucket = calcBucket(theEmployee.empNum);
 		buckets[whichBucket].add(theEmployee);
+                numInHashTable++;
 		
 	}  // end addToTable
 
@@ -66,10 +72,11 @@ public class MyHashTable {
 		int whichBucket = calcBucket(EmployeeNum);
 		for (int i = 0; i < buckets[whichBucket].size(); i++) {
 			if (buckets[whichBucket].get(i).empNum == EmployeeNum) {
+                                numInHashTable -= 1;
 				return buckets[whichBucket].remove(i);
 			}
 		}
-
+                
 		System.out.println("Employee not found.");
 		return(null);
 		

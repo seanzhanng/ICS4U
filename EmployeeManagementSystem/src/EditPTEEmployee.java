@@ -9,28 +9,49 @@ import javax.swing.JOptionPane;
  *
  * @author snyou
  */
-public class PTEInfo extends javax.swing.JFrame {
+public class EditPTEEmployee extends javax.swing.JFrame {
 
     private MyHashTable table;
     private Homepage homepageFrame;
-    private PTE_or_FTE cancelFrame;
+    private EmployeeInfo refNum;
+    private EditEmployeeSearch cancelFrame;
     /**
-     * Creates new form PTEInfo
+     * Creates new form EditPTEEmployee
      */
-    public PTEInfo() {
+    public EditPTEEmployee() {
         initComponents();
     }
     
     public void setMainHT(MyHashTable refvalForHT) {
         table = refvalForHT;
-    }
-    
+    }    
     public void setHomepage(Homepage refvalForHP) {
         homepageFrame = refvalForHP;
     }
     
-    public void setCancel(PTE_or_FTE refval) {
+    public void setCancel(EditEmployeeSearch refval) {
         cancelFrame = refval;
+    }
+    
+    public void setRefVal(EmployeeInfo refvalforEmployee) {
+        refNum = refvalforEmployee;
+        
+        PTE partTime = (PTE) refNum;
+        EmployeeNumber.setText(String.valueOf(refNum.empNum));
+        FirstName.setText(refNum.firstName);
+        LastName.setText(refNum.lastName);
+        if (refNum.gender.equals("Male")) {
+            MaleButton.setSelected(true);
+        }
+        if (refNum.gender.equals("Female")) {
+            FemaleButton.setSelected(true);
+        }
+        WorkLocation.setText(refNum.workLoc);
+        DeductRate.setText(String.valueOf(refNum.deductRate));
+
+        HourlyWage.setText(String.valueOf(partTime.hourlyWage));
+        HoursPerWeek.setText(String.valueOf(partTime.hoursPerWeek));
+        WeeksPerYear.setText(String.valueOf(partTime.weeksPerYear));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,6 +63,9 @@ public class PTEInfo extends javax.swing.JFrame {
     private void initComponents() {
 
         MaleFemaleGroup = new javax.swing.ButtonGroup();
+        SubmitCancelPanel = new javax.swing.JPanel();
+        SubmitButton = new javax.swing.JButton();
+        CancelButton = new javax.swing.JButton();
         Title = new javax.swing.JLabel();
         InputPanel = new javax.swing.JPanel();
         EmployeeNumberLabel = new javax.swing.JLabel();
@@ -63,15 +87,30 @@ public class PTEInfo extends javax.swing.JFrame {
         WeeksPerYear = new javax.swing.JTextField();
         MaleButton = new javax.swing.JRadioButton();
         FemaleButton = new javax.swing.JRadioButton();
-        SubmitCancelPanel = new javax.swing.JPanel();
-        SubmitButton = new javax.swing.JButton();
-        CancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        SubmitCancelPanel.setLayout(new java.awt.GridLayout(2, 1, 10, 10));
+
+        SubmitButton.setText("Submit");
+        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitButtonActionPerformed(evt);
+            }
+        });
+        SubmitCancelPanel.add(SubmitButton);
+
+        CancelButton.setText("Cancel");
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelButtonActionPerformed(evt);
+            }
+        });
+        SubmitCancelPanel.add(CancelButton);
+
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Title.setText("Part-Time Employee");
+        Title.setText("Edit An Employee");
 
         EmployeeNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         EmployeeNumberLabel.setText("Employee Number");
@@ -210,24 +249,6 @@ public class PTEInfo extends javax.swing.JFrame {
                     .addComponent(WeeksPerYear, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        SubmitCancelPanel.setLayout(new java.awt.GridLayout(2, 1, 10, 10));
-
-        SubmitButton.setText("Submit");
-        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitButtonActionPerformed(evt);
-            }
-        });
-        SubmitCancelPanel.add(SubmitButton);
-
-        CancelButton.setText("Cancel");
-        CancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelButtonActionPerformed(evt);
-            }
-        });
-        SubmitCancelPanel.add(CancelButton);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,10 +286,9 @@ public class PTEInfo extends javax.swing.JFrame {
             PTE pte = new PTE();
             pte.empNum = Integer.parseInt(EmployeeNumber.getText());
             if (table.getFromTable(pte.empNum) != null) {
-                JOptionPane.showMessageDialog(null, "Employee already exists!", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Employee with this employee number already exists!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
-            }
-            pte.firstName = FirstName.getText();
+            }             pte.firstName = FirstName.getText();
             pte.lastName = LastName.getText();
             if (MaleButton.isSelected()) {
                 pte.gender = "Male";
@@ -293,13 +313,12 @@ public class PTEInfo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
         }
 
-
     }                                            
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
         cancelFrame.setVisible(true);
-        
+
         this.dispose();
     }                                            
 
@@ -320,20 +339,20 @@ public class PTEInfo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PTEInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPTEEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PTEInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPTEEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PTEInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPTEEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PTEInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPTEEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PTEInfo().setVisible(true);
+                new EditPTEEmployee().setVisible(true);
             }
         });
     }

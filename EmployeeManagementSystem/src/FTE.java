@@ -10,4 +10,12 @@ package com.mycompany.ems;
  */
 public class FTE extends EmployeeInfo {
     public double yearlySalary;
+    
+    public double getYearlySalary() {
+        return yearlySalary;
+    }
+    
+    public double calcNetAnnualIncome() {
+        return (yearlySalary *(1.0 - deductRate));
+    }
 }

@@ -10,13 +10,23 @@ package com.mycompany.ems;
  */
 public class PTE_or_FTE extends javax.swing.JFrame {
 
+    public MyHashTable table;
+    private Homepage homepageFrame;
     /**
      * Creates new form PTE_or_FTE
      */
     public PTE_or_FTE() {
         initComponents();
     }
-
+    
+    public void setMainHT(MyHashTable refvalForHT) {
+        table = refvalForHT;
+    }
+    
+    public void setHomepage(Homepage refvalForHP) {
+        homepageFrame = refvalForHP;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,55 +39,63 @@ public class PTE_or_FTE extends javax.swing.JFrame {
         FTE = new javax.swing.JButton();
         PTE = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
+        Title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        FTE.setText("FTE");
+        FTE.setText("Add A Full Time Employee");
         FTE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FTEActionPerformed(evt);
             }
         });
 
-        PTE.setText("PTE");
+        PTE.setText("Add A Part Time Employee");
         PTE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PTEActionPerformed(evt);
             }
         });
 
-        Cancel.setText("Cancel");
+        Cancel.setText("Back");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelActionPerformed(evt);
             }
         });
 
+        Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Title.setText("Search For An Employee");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(FTE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(PTE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(Cancel)
-                .addGap(36, 36, 36))
+                .addGap(20, 20, 20)
+                .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PTE)
+                    .addComponent(FTE))
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(29, 29, 29)
+                .addComponent(Title)
+                .addGap(27, 27, 27)
                 .addComponent(FTE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PTE)
-                    .addComponent(Cancel))
-                .addGap(75, 75, 75))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PTE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Cancel)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,21 +105,26 @@ public class PTE_or_FTE extends javax.swing.JFrame {
         // TODO add your handling code here:
         FTEInfo addFTEFrame = new FTEInfo();
         addFTEFrame.setVisible(true);
+        addFTEFrame.setMainHT(table);
+        addFTEFrame.setHomepage(homepageFrame);
+        addFTEFrame.setCancel(this);
         
-        this.dispose();
+        this.setVisible(false);
     }                                   
 
     private void PTEActionPerformed(java.awt.event.ActionEvent evt) {                                    
         // TODO add your handling code here:
         PTEInfo addPTEFrame = new PTEInfo();
         addPTEFrame.setVisible(true);
+        addPTEFrame.setMainHT(table);
+        addPTEFrame.setHomepage(homepageFrame);
+        addPTEFrame.setCancel(this);
         
-        this.dispose();
+        this.setVisible(false);
     }                                   
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
-        Homepage homepageFrame = new Homepage();
         homepageFrame.setVisible(true);
         
         this.dispose();
@@ -146,5 +169,6 @@ public class PTE_or_FTE extends javax.swing.JFrame {
     private javax.swing.JButton Cancel;
     private javax.swing.JButton FTE;
     private javax.swing.JButton PTE;
+    private javax.swing.JLabel Title;
     // End of variables declaration                   
 }

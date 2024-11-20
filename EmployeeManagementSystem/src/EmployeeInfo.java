@@ -12,7 +12,24 @@ public class EmployeeInfo {
     public int empNum;
     public String firstName;
     public String lastName;
-    public int gender;
+    public String gender;
     public String workLoc;
     public double deductRate;
+    
+    public int getEmpNum() {
+    	return empNum;
+    }
+    
+    public String getFirstName() {
+    	return firstName;
+    }
+    
+    public String getLastName() {
+    	return lastName;
+    }
+    
+    
+    public double calcNetAnnualIncome() {
+        return (-1.0);
+    }
 }

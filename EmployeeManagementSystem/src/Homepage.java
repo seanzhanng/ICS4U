@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.ems;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
 
 /**
  *
@@ -37,7 +42,8 @@ public class Homepage extends javax.swing.JFrame {
         AddEmployeeButton = new javax.swing.JButton();
         RemoveEmployeeButton = new javax.swing.JButton();
         SearchEmployeeButton = new javax.swing.JButton();
-        DisplayEmployeeButton = new javax.swing.JButton();
+        EditEmployeeButton = new javax.swing.JButton();
+        DisplayEmployeesButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
         LoadButton = new javax.swing.JButton();
 
@@ -48,15 +54,12 @@ public class Homepage extends javax.swing.JFrame {
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Employee Management System");
 
-        ButtonHolder.setLayout(new java.awt.GridLayout(3, 2, 10, 10));
-
         AddEmployeeButton.setText("Add Employee");
         AddEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddEmployeeButtonActionPerformed(evt);
             }
         });
-        ButtonHolder.add(AddEmployeeButton);
 
         RemoveEmployeeButton.setText("Remove Employee");
         RemoveEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +67,6 @@ public class Homepage extends javax.swing.JFrame {
                 RemoveEmployeeButtonActionPerformed(evt);
             }
         });
-        ButtonHolder.add(RemoveEmployeeButton);
 
         SearchEmployeeButton.setText("Search Employee");
         SearchEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -72,15 +74,20 @@ public class Homepage extends javax.swing.JFrame {
                 SearchEmployeeButtonActionPerformed(evt);
             }
         });
-        ButtonHolder.add(SearchEmployeeButton);
 
-        DisplayEmployeeButton.setText("Display All Employees");
-        DisplayEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+        EditEmployeeButton.setText("Edit Employee");
+        EditEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DisplayEmployeeButtonActionPerformed(evt);
+                EditEmployeeButtonActionPerformed(evt);
             }
         });
-        ButtonHolder.add(DisplayEmployeeButton);
+
+        DisplayEmployeesButton.setText("Display All Employees");
+        DisplayEmployeesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisplayEmployeesButtonActionPerformed(evt);
+            }
+        });
 
         SaveButton.setText("Save");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +95,6 @@ public class Homepage extends javax.swing.JFrame {
                 SaveButtonActionPerformed(evt);
             }
         });
-        ButtonHolder.add(SaveButton);
 
         LoadButton.setText("Load");
         LoadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +102,47 @@ public class Homepage extends javax.swing.JFrame {
                 LoadButtonActionPerformed(evt);
             }
         });
-        ButtonHolder.add(LoadButton);
+
+        javax.swing.GroupLayout ButtonHolderLayout = new javax.swing.GroupLayout(ButtonHolder);
+        ButtonHolder.setLayout(ButtonHolderLayout);
+        ButtonHolderLayout.setHorizontalGroup(
+            ButtonHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ButtonHolderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ButtonHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DisplayEmployeesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(ButtonHolderLayout.createSequentialGroup()
+                        .addComponent(AddEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(RemoveEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ButtonHolderLayout.createSequentialGroup()
+                        .addComponent(SearchEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(EditEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ButtonHolderLayout.createSequentialGroup()
+                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
+        );
+        ButtonHolderLayout.setVerticalGroup(
+            ButtonHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ButtonHolderLayout.createSequentialGroup()
+                .addGroup(ButtonHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AddEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RemoveEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(ButtonHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SearchEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(DisplayEmployeesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(ButtonHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 37, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,11 +150,11 @@ public class Homepage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ButtonHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ButtonHolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
@@ -117,8 +163,8 @@ public class Homepage extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ButtonHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addComponent(ButtonHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -128,18 +174,28 @@ public class Homepage extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchEmployee searchEmployeeFrame = new SearchEmployee();
         searchEmployeeFrame.setVisible(true);
+        searchEmployeeFrame.setMainHT(table);
+        searchEmployeeFrame.setHomepage(this);
         
         this.setVisible(false);
     }                                                    
 
-    private void DisplayEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+    private void EditEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         // TODO add your handling code here:
-    }                                                     
+        EditEmployeeSearch editEmployeeFrame = new EditEmployeeSearch();
+        editEmployeeFrame.setVisible(true);
+        editEmployeeFrame.setMainHT(table);
+        editEmployeeFrame.setHomepage(this);
+        
+        this.setVisible(false);
+    }                                                  
 
     private void AddEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
         PTE_or_FTE addEmployeeFrame = new PTE_or_FTE();
         addEmployeeFrame.setVisible(true);
+        addEmployeeFrame.setMainHT(table);
+        addEmployeeFrame.setHomepage(this);
         
         this.setVisible(false);
     }                                                 
@@ -148,17 +204,109 @@ public class Homepage extends javax.swing.JFrame {
         // TODO add your handling code here:
         RemoveEmployee removeEmployeeFrame = new RemoveEmployee();
         removeEmployeeFrame.setVisible(true);
+        removeEmployeeFrame.setMainHT(table);
+        removeEmployeeFrame.setHomepage(this);
         
         this.setVisible(false);
     }                                                    
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+        try {
+            FileWriter myWriter = new FileWriter("employeeInfo.txt");
+            for (int i = 0; i < table.buckets.length; i++) {
+                if (table.buckets[i].isEmpty()) {
+                    continue; 
+                }
+                else {
+                    for (int j = 0; j < table.buckets[i].size(); j++) {
+                        if (table.buckets[i].get(j) instanceof PTE) {
+                            PTE partTime = (PTE) table.buckets[i].get(j);
+                            myWriter.write("PTE@@@\n");
+                            myWriter.write(partTime.empNum + "\n");
+                            myWriter.write(partTime.firstName + "\n");
+                            myWriter.write(partTime.lastName + "\n");
+                            myWriter.write(partTime.gender + "\n");
+                            myWriter.write(partTime.workLoc + "\n");
+                            myWriter.write(partTime.deductRate + "\n");
+                            myWriter.write(partTime.hourlyWage + "\n");
+                            myWriter.write(partTime.hoursPerWeek + "\n");
+                            myWriter.write(partTime.weeksPerYear + "\n");
+                        }
+                        else if (table.buckets[i].get(j) instanceof FTE) {
+                            FTE fullTime = (FTE) table.buckets[i].get(j);
+                            myWriter.write("FTE@@@\n");
+                            myWriter.write(fullTime.empNum + "\n");
+                            myWriter.write(fullTime.firstName + "\n");
+                            myWriter.write(fullTime.lastName + "\n");
+                            myWriter.write(fullTime.gender + "\n");
+                            myWriter.write(fullTime.workLoc + "\n");
+                            myWriter.write(fullTime.deductRate + "\n");
+                            myWriter.write(fullTime.yearlySalary + "\n");
+                        }
+                    }
+                }
+            }
+            System.out.println("Successfully wrote to the file.");
+            myWriter.close();
+        } catch (IOException e) {
+          System.out.println("An error occurred.");
+          e.printStackTrace();
+        }
     }                                          
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+        try {
+            File myObj = new File("employeeInfo.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                if (data.equals("PTE@@@")) {
+                    PTE pte = new PTE();
+                    pte.empNum = Integer.parseInt(myReader.nextLine());
+                    pte.firstName = myReader.nextLine();
+                    pte.lastName = myReader.nextLine();
+                    pte.gender = myReader.nextLine();
+                    pte.workLoc = myReader.nextLine();
+                    pte.deductRate = Double.parseDouble(myReader.nextLine());
+                    pte.hourlyWage = Double.parseDouble(myReader.nextLine());
+                    pte.hoursPerWeek = Double.parseDouble(myReader.nextLine());
+                    pte.weeksPerYear = Double.parseDouble(myReader.nextLine());
+
+                    table.addToTable(pte);
+                }
+                else if (data.equals("FTE@@@")) {
+                    FTE fte = new FTE();
+                    fte.empNum = Integer.parseInt(myReader.nextLine());
+                    fte.firstName = myReader.nextLine();
+                    fte.lastName = myReader.nextLine();
+                    fte.gender = myReader.nextLine();
+                    fte.workLoc = myReader.nextLine();
+                    fte.deductRate = Double.parseDouble(myReader.nextLine());
+                    fte.yearlySalary = Double.parseDouble(myReader.nextLine());
+                    
+                    table.addToTable(fte);
+                }
+            }
+            myReader.close();
+            System.out.println("Employees added to hash table.");
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }                                          
+
+    private void DisplayEmployeesButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
+        // TODO add your handling code here:
+        DisplayEmployees displayEmployeesFrame = new DisplayEmployees();
+        displayEmployeesFrame.setVisible(true);
+        displayEmployeesFrame.setMainHT(table);
+        displayEmployeesFrame.setHomepage(this);
+        
+        this.setVisible(false);
+    }                                                      
 
     /**
      * @param args the command line arguments
@@ -199,7 +347,8 @@ public class Homepage extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JButton AddEmployeeButton;
     private javax.swing.JPanel ButtonHolder;
-    private javax.swing.JButton DisplayEmployeeButton;
+    private javax.swing.JButton DisplayEmployeesButton;
+    private javax.swing.JButton EditEmployeeButton;
     private javax.swing.JButton LoadButton;
     private javax.swing.JButton RemoveEmployeeButton;
     private javax.swing.JButton SaveButton;

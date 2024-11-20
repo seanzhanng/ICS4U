@@ -9,14 +9,14 @@ import javax.swing.JOptionPane;
  *
  * @author snyou
  */
-public class SearchEmployee extends javax.swing.JFrame {
-
+public class EditEmployeeSearch extends javax.swing.JFrame {
+    
     private MyHashTable table;
     private Homepage homepageFrame;
     /**
-     * Creates new form SearchEmployee
+     * Creates new form EditEmployee
      */
-    public SearchEmployee() {
+    public EditEmployeeSearch() {
         initComponents();
     }
     
@@ -26,7 +26,7 @@ public class SearchEmployee extends javax.swing.JFrame {
 
     public void setHomepage(Homepage refvalForHP) {
         homepageFrame = refvalForHP;
-    }    
+    }   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,24 +36,15 @@ public class SearchEmployee extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        InputPanel = new javax.swing.JPanel();
-        EmployeeNumberLabel = new javax.swing.JLabel();
-        EmployeeNumber = new javax.swing.JTextField();
         SubmitCancelPanel = new javax.swing.JPanel();
         SubmitButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
         Title = new javax.swing.JLabel();
+        InputPanel = new javax.swing.JPanel();
+        EmployeeNumberLabel = new javax.swing.JLabel();
+        EmployeeNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        InputPanel.setLayout(new java.awt.GridLayout(1, 2, 10, 10));
-
-        EmployeeNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        EmployeeNumberLabel.setText("Employee Number");
-        InputPanel.add(EmployeeNumberLabel);
-
-        EmployeeNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        InputPanel.add(EmployeeNumber);
 
         SubmitCancelPanel.setLayout(new java.awt.GridLayout(2, 1, 10, 10));
 
@@ -75,7 +66,16 @@ public class SearchEmployee extends javax.swing.JFrame {
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Title.setText("Search For An Employee");
+        Title.setText("Edit An Employee");
+
+        InputPanel.setLayout(new java.awt.GridLayout(1, 2, 10, 10));
+
+        EmployeeNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EmployeeNumberLabel.setText("Employee Number");
+        InputPanel.add(EmployeeNumberLabel);
+
+        EmployeeNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        InputPanel.add(EmployeeNumber);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,28 +112,35 @@ public class SearchEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             int empNum = Integer.parseInt(EmployeeNumber.getText());
-            
+
             EmployeeInfo refNumber = table.getFromTable(empNum);
 
-                if (refNumber instanceof PTE) {
-                    DisplayPTE displayPTEFrame = new DisplayPTE();
-                    displayPTEFrame.setVisible(true);
-                    displayPTEFrame.setHomepage(homepageFrame);
-                    displayPTEFrame.setRefVal(refNumber);
+            if (refNumber instanceof PTE) {
+                EditPTEEmployee editPTEFrame = new EditPTEEmployee();
+                editPTEFrame.setVisible(true);
+                editPTEFrame.setHomepage(homepageFrame);
+                editPTEFrame.setRefVal(refNumber);
+                editPTEFrame.setCancel(this);
+                editPTEFrame.setMainHT(table);
+                this.EmployeeNumber.setText("");
 
-                    this.dispose();
-                }
-                else if (refNumber instanceof FTE) {
-                    DisplayFTE displayFTEFrame = new DisplayFTE();
-                    displayFTEFrame.setVisible(true);
-                    displayFTEFrame.setHomepage(homepageFrame);
-                    displayFTEFrame.setRefVal(refNumber);
+                this.setVisible(false);
+            }
+            else if (refNumber instanceof FTE) {
+                EditFTEEmployee editFTEFrame = new EditFTEEmployee();
+                editFTEFrame.setVisible(true);
+                editFTEFrame.setHomepage(homepageFrame);
+                editFTEFrame.setRefVal(refNumber);
+                editFTEFrame.setCancel(this);
+                editFTEFrame.setMainHT(table);
+                this.EmployeeNumber.setText("");
 
-                    this.dispose();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Employee does not exist", "", JOptionPane.INFORMATION_MESSAGE);
-                }
+                this.setVisible(false);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Employee does not exist", "", JOptionPane.INFORMATION_MESSAGE);
+            }
+            table.removeFromTable(empNum);
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
@@ -164,20 +171,21 @@ public class SearchEmployee extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEmployeeSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchEmployee().setVisible(true);
+                new EditEmployeeSearch().setVisible(true);
             }
         });
     }
