@@ -97,28 +97,35 @@ public class DisplayEmployees extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)
+                        .addGap(323, 323, 323)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(HomepageButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(HomepageButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(HomepageButton))
+                        .addGap(40, 40, 40)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -130,10 +137,19 @@ public class DisplayEmployees extends javax.swing.JFrame {
         int numInHT = mainHT.getNumInHashTable();
 
         // Set up the colum headers and also state how many rows of data to display
-        model = new DefaultTableModel(new Object[] {"Status",
+        model = new DefaultTableModel(new Object[] {
+            "Status",
             "Emp Num",
             "First Name",
-            "Last Name"},
+            "Last Name",
+            "Gender",
+            "Work Location",
+            "Deduction Rate",
+            "Gross Annual Income",
+            "Net Annual Income",
+            "Hourly Wage",
+            "Hours Per Weeks",
+            "Weeks Per Year"},
         numInHT);
         jTable1.setModel(model);
         jTable1.setAutoCreateColumnsFromModel(true);
@@ -165,7 +181,14 @@ public class DisplayEmployees extends javax.swing.JFrame {
                         model.setValueAt(theEmp.getEmpNum(), empCounter, 1);
                         model.setValueAt(theEmp.getFirstName(), empCounter, 2);
                         model.setValueAt(theEmp.getLastName(), empCounter, 3);
-
+                        model.setValueAt(theEmp.getGender(), empCounter, 4);
+                        model.setValueAt(theEmp.getWorkLoc(), empCounter, 5);
+                        model.setValueAt(theEmp.getDeduct(), empCounter, 6);
+                        model.setValueAt(theFTE.getYearlySalary(), empCounter, 7);
+                        model.setValueAt(theFTE.calcNetAnnualIncome(), empCounter, 8);
+                        model.setValueAt("N/A", empCounter, 9);
+                        model.setValueAt("N/A", empCounter, 10);
+                        model.setValueAt("N/A", empCounter, 11);
                     }
 
                     if (theEmp instanceof PTE) {
@@ -178,7 +201,14 @@ public class DisplayEmployees extends javax.swing.JFrame {
                         model.setValueAt(theEmp.getEmpNum(), empCounter, 1);
                         model.setValueAt(theEmp.getFirstName(), empCounter, 2);
                         model.setValueAt(theEmp.getLastName(), empCounter, 3);
-
+                        model.setValueAt(theEmp.getGender(), empCounter, 4);
+                        model.setValueAt(theEmp.getWorkLoc(), empCounter, 5);
+                        model.setValueAt(theEmp.getDeduct(), empCounter, 6);
+                        model.setValueAt(thePTE.getYearlySalary(), empCounter, 7);
+                        model.setValueAt(thePTE.calcNetAnnualIncome(), empCounter, 8);
+                        model.setValueAt(thePTE.getHourlyWage(), empCounter, 9);
+                        model.setValueAt(thePTE.getHoursPerWeek(), empCounter, 10);
+                        model.setValueAt(thePTE.getWeeksPerYear(), empCounter, 11);
                     }
                 }
 

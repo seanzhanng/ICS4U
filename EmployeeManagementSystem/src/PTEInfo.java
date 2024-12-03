@@ -268,20 +268,45 @@ public class PTEInfo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Employee already exists!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            pte.firstName = FirstName.getText();
-            pte.lastName = LastName.getText();
+            pte.firstName = FirstName.getText().strip();
+            pte.lastName = LastName.getText().strip();
             if (MaleButton.isSelected()) {
                 pte.gender = "Male";
             }
             if (FemaleButton.isSelected()) {
                 pte.gender = "Female";
             }
-            pte.workLoc = WorkLocation.getText();
+            pte.workLoc = WorkLocation.getText().strip();
             pte.deductRate = Double.parseDouble(DeductRate.getText());
             pte.hourlyWage = Double.parseDouble(HourlyWage.getText());
             pte.hoursPerWeek = Double.parseDouble(HoursPerWeek.getText());
             pte.weeksPerYear = Double.parseDouble(WeeksPerYear.getText());
-
+            
+            if (pte.firstName.equals("") || pte.lastName.equals("") || pte.workLoc.equals("")) {
+                JOptionPane.showMessageDialog(null, "Invalid employee input", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            if (pte.deductRate < 0 || pte.deductRate > 1) {
+                JOptionPane.showMessageDialog(null, "Deduct rate must be between 0 and 1 (inclusive)", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            if (pte.hourlyWage < 0) {
+                JOptionPane.showMessageDialog(null, "Hourly wage must be greater than 0", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            if (pte.hoursPerWeek < 0 || pte.hoursPerWeek > 48) {
+                JOptionPane.showMessageDialog(null, "Hours per week must be between 0 and 48", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            if (pte.weeksPerYear < 0 || pte.weeksPerYear > 52) {
+                JOptionPane.showMessageDialog(null, "Weeks per year must be between 0 and 52", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }  
+            
             table.addToTable(pte);
 
             homepageFrame.setVisible(true);
@@ -290,7 +315,7 @@ public class PTEInfo extends javax.swing.JFrame {
             this.dispose();
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid employee input", "", JOptionPane.INFORMATION_MESSAGE);
         }
 
 

@@ -28,6 +28,17 @@ public class EmployeeInfo {
     	return lastName;
     }
     
+    public String getGender() {
+        return gender;
+    }
+    
+    public String getWorkLoc() {
+        return workLoc;
+    }
+    
+    public double getDeduct() {
+        return deductRate;
+    }
     
     public double calcNetAnnualIncome() {
         return (-1.0);

@@ -375,22 +375,49 @@ public class DisplayEdit extends javax.swing.JFrame {
             if (PTEButton.isSelected()) {                                       
                 PTE pte = new PTE();
                 pte.empNum = Integer.parseInt(EmployeeNumber.getText());
-                if (table.getFromTable(pte.empNum) != null) {
+                if (table.getFromTable(pte.empNum) != null && pte.empNum != refNum.empNum) {
                     JOptionPane.showMessageDialog(null, "Employee with this employee number already exists!", "", JOptionPane.INFORMATION_MESSAGE);
                     return;
-                }             pte.firstName = FirstName.getText();
-                pte.lastName = LastName.getText();
+                }             
+                pte.firstName = FirstName.getText().strip();
+                pte.lastName = LastName.getText().strip();
                 if (MaleButton.isSelected()) {
                     pte.gender = "Male";
                 }
                 if (FemaleButton.isSelected()) {
                     pte.gender = "Female";
                 }
-                pte.workLoc = WorkLocation.getText();
+                pte.workLoc = WorkLocation.getText().strip();
                 pte.deductRate = Double.parseDouble(DeductRate.getText());
                 pte.hourlyWage = Double.parseDouble(HourlyWage_YearlySalary.getText());
                 pte.hoursPerWeek = Double.parseDouble(HoursPerWeek.getText());
                 pte.weeksPerYear = Double.parseDouble(WeeksPerYear.getText());
+
+                if (pte.firstName.equals("") || pte.lastName.equals("") || pte.workLoc.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Invalid employee input", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }         
+                
+                if (pte.deductRate < 0 || pte.deductRate > 1) {
+                    JOptionPane.showMessageDialog(null, "Deduct rate must be between 0 and 1 (inclusive)", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (pte.hourlyWage < 0) {
+                    JOptionPane.showMessageDialog(null, "Hourly wage must be greater than 0", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (pte.hoursPerWeek < 0 || pte.hoursPerWeek > 48) {
+                    JOptionPane.showMessageDialog(null, "Hours per week must be between 0 and 48", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (pte.weeksPerYear < 0 || pte.weeksPerYear > 52) {
+                    JOptionPane.showMessageDialog(null, "Weeks per year must be between 0 and 52", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }  
+                table.removeFromTable(refNum.empNum);
 
                 table.addToTable(pte);
                 System.out.println("added PTE!");
@@ -398,22 +425,38 @@ public class DisplayEdit extends javax.swing.JFrame {
             else if (FTEButton.isSelected()) {                
                 FTE fte = new FTE();
                 fte.empNum = Integer.parseInt(EmployeeNumber.getText());
-                if (table.getFromTable(fte.empNum) != null) {
+                if (table.getFromTable(fte.empNum) != null && fte.empNum != refNum.empNum) {
                     JOptionPane.showMessageDialog(null, "Employee with this employee number already exists!", "", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }   
-                fte.firstName = FirstName.getText();
-                fte.lastName = LastName.getText();
+                fte.firstName = FirstName.getText().strip();
+                fte.lastName = LastName.getText().strip();
                 if (MaleButton.isSelected()) {
                     fte.gender = "Male";
                 }
                 if (FemaleButton.isSelected()) {
                     fte.gender = "Female";
                 }
-                fte.workLoc = WorkLocation.getText();
+                fte.workLoc = WorkLocation.getText().strip();
                 fte.deductRate = Double.parseDouble(DeductRate.getText());
                 fte.yearlySalary = Double.parseDouble(HourlyWage_YearlySalary.getText());
 
+                if (fte.firstName.equals("") || fte.lastName.equals("") || fte.workLoc.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Invalid input", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (fte.deductRate < 0 || fte.deductRate > 1) {
+                    JOptionPane.showMessageDialog(null, "Deduct rate must be between 0 and 1 (inclusive)", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (fte.yearlySalary < 0) {
+                    JOptionPane.showMessageDialog(null, "Yearly salary must be greater than 0", "", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                table.removeFromTable(refNum.empNum);
+                
                 table.addToTable(fte);
                 System.out.println("added FTE!");
 
@@ -422,7 +465,7 @@ public class DisplayEdit extends javax.swing.JFrame {
             this.dispose();
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid input", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_SubmitButtonActionPerformed
 

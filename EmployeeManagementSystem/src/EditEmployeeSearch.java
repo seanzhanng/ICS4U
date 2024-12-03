@@ -129,7 +129,6 @@ public class EditEmployeeSearch extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(null, "Employee does not exist", "", JOptionPane.INFORMATION_MESSAGE);
             }
-            table.removeFromTable(empNum);
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);

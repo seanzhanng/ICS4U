@@ -239,18 +239,33 @@ public class FTEInfo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Employee already exists!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }            
-            fte.firstName = FirstName.getText();
-            fte.lastName = LastName.getText();
+            fte.firstName = FirstName.getText().strip();
+            fte.lastName = LastName.getText().strip();
             if (MaleButton.isSelected()) {
                 fte.gender = "Male";
             }
             if (FemaleButton.isSelected()) {
                 fte.gender = "Female";
             }
-            fte.workLoc = WorkLocation.getText();
+            fte.workLoc = WorkLocation.getText().strip();
             fte.deductRate = Double.parseDouble(DeductRate.getText());
             fte.yearlySalary = Double.parseDouble(YearlySalary.getText());
 
+            if (fte.firstName.equals("") || fte.lastName.equals("") || fte.workLoc.equals("")) {
+                JOptionPane.showMessageDialog(null, "Invalid employee input", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }       
+            
+            if (fte.deductRate < 0 || fte.deductRate > 1) {
+                JOptionPane.showMessageDialog(null, "Deduct rate must be between 0 and 1 (inclusive)", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            if (fte.yearlySalary < 0) {
+                JOptionPane.showMessageDialog(null, "Yearly salary must be greater than 0", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
             table.addToTable(fte);
 
             homepageFrame.setVisible(true);
@@ -259,7 +274,7 @@ public class FTEInfo extends javax.swing.JFrame {
             this.dispose();
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid Employee Input", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid employee input", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_SubmitButtonActionPerformed
 

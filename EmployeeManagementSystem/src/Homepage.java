@@ -257,6 +257,7 @@ public class Homepage extends javax.swing.JFrame {
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
         // TODO add your handling code here:
+        table = new MyHashTable(10);
         try {
             File myObj = new File("employeeInfo.txt");
             Scanner myReader = new Scanner(myObj);
