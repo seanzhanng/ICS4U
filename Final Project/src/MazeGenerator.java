@@ -16,6 +16,9 @@ public class MazeGenerator {
     }
 
     public void generateMaze(int startX, int startY) {
+        grid.getCell(0,0).getWalls()[0] = false;
+        grid.getCell(endX,endY).getWalls()[2] = false;        
+        
         Stack<Cell> stack = new Stack<>(); // create a stack to track visited cells order
         traverse(stack, startX, startY);
     }
@@ -27,11 +30,7 @@ public class MazeGenerator {
 
         Cell currentCell = grid.getCell(x, y);
 
-        System.out.println("Visited the cell: (" + currentCell.getX() + ", " + currentCell.getY() + ")");
-
-        if (currentCell.getX() == endX && currentCell.getY() == endY) {
-            System.out.println("Reached the end!");
-        }
+        // System.out.println("Visited the cell: (" + currentCell.getX() + ", " + currentCell.getY() + ")");
 
         currentCell.setVisited(true); // mark the current cell as visited
         counter++; // increment visited cells by 1
@@ -58,8 +57,8 @@ public class MazeGenerator {
     }
     private Cell getNeighbor(int x, int y, int direction) {
         if (direction == 0) {
-            if (grid.isValidMove(x-1, y)) {
-                return grid.getCell(x-1, y);
+            if (grid.isValidMove(x, y-1)) {
+                return grid.getCell(x, y-1);
             }
         }
         else if (direction == 1) {
@@ -68,13 +67,13 @@ public class MazeGenerator {
             }
         }
         else if (direction == 2) {
-            if (grid.isValidMove(x, y-1)) {
-                return grid.getCell(x, y-1);
+            if (grid.isValidMove(x, y+1)) {
+                return grid.getCell(x, y+1);
             }
         }
         else if (direction == 3) {
-            if (grid.isValidMove(x, y+1)) {
-                return grid.getCell(x, y+1);
+            if (grid.isValidMove(x-1, y)) {
+                return grid.getCell(x-1, y);
             }
         }
         return null;
