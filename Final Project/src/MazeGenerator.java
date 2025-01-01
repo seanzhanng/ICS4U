@@ -27,7 +27,7 @@ public class MazeGenerator {
 
         Cell currentCell = grid.getCell(x, y);
 
-        System.out.println("Visited the cell: " + currentCell.getX() + currentCell.getY());
+        System.out.println("Visited the cell: (" + currentCell.getX() + ", " + currentCell.getY() + ")");
 
         if (currentCell.getX() == endX && currentCell.getY() == endY) {
             System.out.println("Reached the end!");

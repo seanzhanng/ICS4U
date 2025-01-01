@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        int width = 3;
-        int height = 4;
+        int width = 10;
+        int height = 10;
 
         Grid grid = new Grid(width, height);
 

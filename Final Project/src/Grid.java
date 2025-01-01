@@ -20,8 +20,4 @@ public class Grid {
     public boolean isValidMove(int x, int y) {
         return x >= 0 && y >= 0 && x < width && y < height; // return true as long as in bounds
     }
-
-    public Cell[][] getGrid() {
-        return grid;
-    }
 }

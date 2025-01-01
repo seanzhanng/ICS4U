@@ -29,10 +29,6 @@ public class Cell {
         this.visited = visited;
     }
 
-    public boolean[] getWalls() {
-        return walls;
-    }
-
     public void removeWall(int direction, Cell neighbor) {
         // Remove a wall by index (0=top, 1=right, 2=bottom, 3=left)
 
