@@ -1,5 +1,6 @@
 public class Grid {
     private Cell[][] grid;
+    public int width, length;
 
     public Grid(int width, int height) {
         grid = new Cell[width][height];
