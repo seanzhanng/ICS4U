@@ -11,7 +11,6 @@ public class Cell {
         for (int i = 0; i < 4; i++) {
             walls[i] = true;
         }
-        System.out.println("Cell created at (" + x + ", " + y + ") with all walls intact.");
     }
 
     public int getX() {

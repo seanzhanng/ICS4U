@@ -4,11 +4,15 @@ public class MazeGenerator {
     private Grid grid;
     private int cells;
     private int counter;
+    private int endX;
+    private int endY;
 
     public MazeGenerator(Grid grid) {
         this.grid = grid;
-        this.cells = grid.width*grid.length; // total cells in the grid
+        this.cells = grid.width*grid.height; // total cells in the grid
         this.counter = 0; // 0 cells traversed
+        this.endX = grid.width-1;
+        this.endY = grid.height-1;
     }
 
     public void generateMaze(int startX, int startY) {
@@ -17,12 +21,17 @@ public class MazeGenerator {
     }
 
     private void traverse(Stack<Cell> stack, int x, int y) { // the moving method that's going to be called recursively
-
         if (counter >= cells) { // if all cells have been visited, stop
             return;
         }
 
         Cell currentCell = grid.getCell(x, y);
+
+        System.out.println("Visited the cell: " + currentCell.getX() + currentCell.getY());
+
+        if (currentCell.getX() == endX && currentCell.getY() == endY) {
+            System.out.println("Reached the end!");
+        }
 
         currentCell.setVisited(true); // mark the current cell as visited
         counter++; // increment visited cells by 1
@@ -37,7 +46,7 @@ public class MazeGenerator {
             Cell neighbor = getNeighbor(x, y, direction);
             // check if it has been visited before
             // check if it is out of bounds
-            if (!neighbor.isVisited() && grid.isValidMove(neighbor.getX(), neighbor.getY())) {
+            if (neighbor != null && !neighbor.isVisited() && grid.isValidMove(neighbor.getX(), neighbor.getY())) {
                 // break the wall
                 currentCell.removeWall(direction, neighbor);
                 // traverse new current cell
@@ -49,16 +58,25 @@ public class MazeGenerator {
     }
     private Cell getNeighbor(int x, int y, int direction) {
         if (direction == 0) {
-            return grid.getCell(x-1, y);
+            if (grid.isValidMove(x-1, y)) {
+                return grid.getCell(x-1, y);
+            }
         }
         else if (direction == 1) {
-            return grid.getCell(x+1, y);
+            if (grid.isValidMove(x+1, y)) {
+                return grid.getCell(x+1, y);
+            }
         }
         else if (direction == 2) {
-            return grid.getCell(x, y-1);
+            if (grid.isValidMove(x, y-1)) {
+                return grid.getCell(x, y-1);
+            }
         }
-        else {
-            return grid.getCell(x, y+1);
+        else if (direction == 3) {
+            if (grid.isValidMove(x, y+1)) {
+                return grid.getCell(x, y+1);
+            }
         }
+        return null;
     }
 }
