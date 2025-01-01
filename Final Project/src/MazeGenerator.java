@@ -30,7 +30,7 @@ public class MazeGenerator {
 
         Cell currentCell = grid.getCell(x, y);
 
-        // System.out.println("Visited the cell: (" + currentCell.getX() + ", " + currentCell.getY() + ")");
+        System.out.println("Visited the cell: (" + currentCell.getX() + ", " + currentCell.getY() + ")");
 
         currentCell.setVisited(true); // mark the current cell as visited
         counter++; // increment visited cells by 1
@@ -41,15 +41,12 @@ public class MazeGenerator {
         Collections.shuffle(directions); // randomize the array
 
         for (int direction : directions) {
-            // initialize the target cell
-            Cell neighbor = getNeighbor(x, y, direction);
-            // check if it has been visited before
-            // check if it is out of bounds
-            if (neighbor != null && !neighbor.isVisited() && grid.isValidMove(neighbor.getX(), neighbor.getY())) {
-                // break the wall
-                currentCell.removeWall(direction, neighbor);
-                // traverse new current cell
-                traverse(stack, neighbor.getX(), neighbor.getY());
+
+            Cell neighbor = getNeighbor(x, y, direction); // initialize the target cell
+
+            if (neighbor != null && !neighbor.isVisited() && grid.isValidMove(neighbor.getX(), neighbor.getY())) { // check if it has been visited before or if it is out of bounds
+                currentCell.removeWall(direction, neighbor); // break the wall
+                traverse(stack, neighbor.getX(), neighbor.getY()); // traverse new current cell
             }
         }
         // after all directions for the single cell have been tested (aka dead end reached), pop it from the stack

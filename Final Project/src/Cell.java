@@ -1,12 +1,14 @@
 public class Cell {
     private int x, y;
     private boolean visited;
+    private boolean traversed;
     private boolean[] walls;
 
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
         this.visited = false;
+        this.traversed = false;
         this.walls = new boolean[4];
         for (int i = 0; i < 4; i++) {
             walls[i] = true;
@@ -21,12 +23,21 @@ public class Cell {
         return y;
     }
 
-    public boolean isVisited() {
+    public boolean isVisited() { // for the maze generator
         return visited;
     }
 
-    public void setVisited(boolean visited) {
+    public void setVisited(boolean visited) { // for the maze generator
         this.visited = visited;
+    }
+
+    // note to self: there might be a way to just set every cell to not visited when maze solver is called
+    public boolean isTraversed() { // for the maze solver
+        return traversed;
+    }
+
+    public void setTraversed(boolean traversed) { // for the maze solver
+        this.traversed = traversed;
     }
     
     public boolean[] getWalls() {
