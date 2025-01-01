@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.mazegenerator;
-import javax.swing.JOptionPane;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Stack;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Homepage extends javax.swing.JFrame {
     /**
      * Creates new form Homepage
      */
+    private Grid grid;
+    
     public Homepage() {
         initComponents();
     }
@@ -34,6 +37,7 @@ public class Homepage extends javax.swing.JFrame {
         widthField = new javax.swing.JTextField();
         heightLabel = new javax.swing.JLabel();
         heightField = new javax.swing.JTextField();
+        solveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,11 +47,11 @@ public class Homepage extends javax.swing.JFrame {
         mazePanel.setLayout(mazePanelLayout);
         mazePanelLayout.setHorizontalGroup(
             mazePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         mazePanelLayout.setVerticalGroup(
             mazePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGap(0, 303, Short.MAX_VALUE)
         );
 
         widthLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -63,42 +67,57 @@ public class Homepage extends javax.swing.JFrame {
         heightLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         heightLabel.setText("Height:");
 
+        solveButton.setText("Solve Maze");
+        solveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                solveButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mazePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mazePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(widthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(widthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(widthField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(heightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(widthField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(heightLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(generateButton)))
-                .addGap(62, 62, 62))
+                        .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(generateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(solveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(widthLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(widthLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(widthField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(heightLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(generateButton)
-                    .addComponent(widthField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(heightLabel)
-                        .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                    .addComponent(solveButton))
+                .addGap(27, 27, 27)
                 .addComponent(mazePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -109,7 +128,7 @@ public class Homepage extends javax.swing.JFrame {
         try {
             int width = Integer.parseInt(widthField.getText());
             int height = Integer.parseInt(heightField.getText());
-            Grid grid = new Grid(width, height);
+            grid = new Grid(width, height);
             MazeGenerator mazeGenerator = new MazeGenerator(grid);
             mazeGenerator.generateMaze(0, 0);
             
@@ -118,36 +137,97 @@ public class Homepage extends javax.swing.JFrame {
             drawMaze(g, grid, mazePanel.getWidth(), mazePanel.getHeight());
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid input", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Positive integers only!", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_generateButtonActionPerformed
 
     private void drawMaze(Graphics g, Grid grid, int panelWidth, int panelHeight) {
         int cellSize = Math.min(panelWidth / grid.width, panelHeight / grid.height); // Scale cells to fit the panel
 
+        g.setColor(Color.GREEN);
+        g.fillRect(1, 1, cellSize, cellSize);
+        
+        g.setColor(Color.RED);
+        g.fillRect((grid.width - 1) * cellSize + 1, (grid.height - 1) * cellSize + 1, cellSize, cellSize);
+        
+        g.setColor(Color.BLACK);  // Set color for walls
+        
         for (int x = 0; x < grid.width; x++) {
             for (int y = 0; y < grid.height; y++) {
                 int topLeftX = x * cellSize;
                 int topLeftY = y * cellSize;
 
                 // Draw all four walls for each cell
-                if (grid.getCell(x,y).getWalls()[0] == true) {
+                if (grid.getCell(x, y).getWalls()[0] == true) {
                     g.drawLine(topLeftX, topLeftY, topLeftX + cellSize, topLeftY); // Top wall
                 }
-                if (grid.getCell(x,y).getWalls()[1] == true) {
+                if (grid.getCell(x, y).getWalls()[1] == true) {
                     g.drawLine(topLeftX + cellSize, topLeftY, topLeftX + cellSize, topLeftY + cellSize); // Right wall
                 }
-                if (grid.getCell(x,y).getWalls()[2] == true) {
+                if (grid.getCell(x, y).getWalls()[2] == true) {
                     g.drawLine(topLeftX, topLeftY + cellSize, topLeftX + cellSize, topLeftY + cellSize); // Bottom wall
                 }
-                if (grid.getCell(x,y).getWalls()[3] == true) {
+                if (grid.getCell(x, y).getWalls()[3] == true) {
                     g.drawLine(topLeftX, topLeftY, topLeftX, topLeftY + cellSize); // Left wall
                 }
             }
         }
     }
+    
+    private void solveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveButtonActionPerformed
+        // TODO add your handling code here:
+        try {
 
+            MazeSolver mazeSolver = new MazeSolver(grid);
+            Stack<Cell> solutionStack = mazeSolver.solveMaze(0, 0); // Store the result stack
+                         
+            Graphics g = mazePanel.getGraphics();
+            drawSolution(g, grid, solutionStack, mazePanel.getWidth(), mazePanel.getHeight());
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Generate a maze first!", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_solveButtonActionPerformed
+    
+    private void drawSolution(Graphics g, Grid grid, Stack<Cell> solutionStack, int panelWidth, int panelHeight) {
+        int cellSize = Math.min(panelWidth / grid.width, panelHeight / grid.height); // Scale cells to fit the panel
 
+        g.setColor(Color.BLUE);  // Set color for solution cells
+
+        for (Cell cell : solutionStack) {
+            int topLeftX = cell.getX() * cellSize + 1;
+            int topLeftY = cell.getY() * cellSize + 1;
+            g.fillRect(topLeftX, topLeftY, cellSize, cellSize); // Draw filled rectangle for each solution cell
+        }
+        
+        g.setColor(Color.GREEN);
+        g.fillRect(1, 1, cellSize, cellSize);
+        
+        g.setColor(Color.RED);
+        g.fillRect((grid.width - 1) * cellSize + 1, (grid.height - 1) * cellSize + 1, cellSize, cellSize);
+
+        g.setColor(Color.BLACK);  // Set color for walls
+        for (int x = 0; x < grid.width; x++) {
+            for (int y = 0; y < grid.height; y++) {
+                int topLeftX = x * cellSize;
+                int topLeftY = y * cellSize;
+
+                // Draw all four walls for each cell
+                if (grid.getCell(x, y).getWalls()[0] == true) {
+                    g.drawLine(topLeftX, topLeftY, topLeftX + cellSize, topLeftY); // Top wall
+                }
+                if (grid.getCell(x, y).getWalls()[1] == true) {
+                    g.drawLine(topLeftX + cellSize, topLeftY, topLeftX + cellSize, topLeftY + cellSize); // Right wall
+                }
+                if (grid.getCell(x, y).getWalls()[2] == true) {
+                    g.drawLine(topLeftX, topLeftY + cellSize, topLeftX + cellSize, topLeftY + cellSize); // Bottom wall
+                }
+                if (grid.getCell(x, y).getWalls()[3] == true) {
+                    g.drawLine(topLeftX, topLeftY, topLeftX, topLeftY + cellSize); // Left wall
+                }
+            }
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -192,6 +272,7 @@ public class Homepage extends javax.swing.JFrame {
     private javax.swing.JTextField heightField;
     private javax.swing.JLabel heightLabel;
     private javax.swing.JPanel mazePanel;
+    private javax.swing.JButton solveButton;
     private javax.swing.JTextField widthField;
     private javax.swing.JLabel widthLabel;
     // End of variables declaration//GEN-END:variables
