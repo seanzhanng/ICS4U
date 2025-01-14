@@ -10,8 +10,8 @@ package com.mycompany.mazegenerator;
  */
 public class Cell {
     private int x, y;
-    private boolean visited;
-    private boolean traversed;
+    private boolean visited; // for generator
+    private boolean traversed; // for solver
     private boolean[] walls;
 
     public Cell(int x, int y) {
