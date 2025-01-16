@@ -49,6 +49,7 @@ public class Homepage extends javax.swing.JFrame {
         checkbox = new javax.swing.JCheckBox();
         previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +107,13 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
 
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,6 +123,8 @@ public class Homepage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mazePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(clearButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(widthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(widthField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,7 +141,8 @@ public class Homepage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(previousButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextButton)))
+                        .addComponent(nextButton)
+                        .addGap(0, 84, Short.MAX_VALUE)))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -140,8 +151,10 @@ public class Homepage extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(widthLabel))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(widthLabel)
+                            .addComponent(clearButton)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(widthField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -157,7 +170,7 @@ public class Homepage extends javax.swing.JFrame {
                         .addComponent(checkbox)
                         .addComponent(previousButton)
                         .addComponent(nextButton)))
-                .addGap(27, 27, 27)
+                .addGap(23, 23, 23)
                 .addComponent(mazePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(39, 39, 39))
         );
@@ -170,21 +183,26 @@ public class Homepage extends javax.swing.JFrame {
         try {
             width = Integer.parseInt(widthField.getText());
             height = Integer.parseInt(heightField.getText());
-            grid = new Grid(width, height);
-            MazeGenerator mazeGenerator = new MazeGenerator(grid);
-            mazeGenerator.generateMaze(0, 0);
             
-            MazeSolver mazeSolver = new MazeSolver(grid);
-            solutionStack = mazeSolver.solveMaze(0, 0); // Store the result stack
-            
-            stackIndex = 1;
-            
-            g = mazePanel.getGraphics();
-            mazePanel.paint(g); // Clear the panel
-            
-            cellSize = Math.min(mazePanel.getWidth() / width, mazePanel.getHeight() / height); // Scale cells to fit the panel
+            if (width <= 50 && height <= 50) {
+                grid = new Grid(width, height);
+                MazeGenerator mazeGenerator = new MazeGenerator(grid);
+                mazeGenerator.generateMaze(0, 0);
 
-            drawBorders();
+                MazeSolver mazeSolver = new MazeSolver(grid);
+                solutionStack = mazeSolver.solveMaze(0, 0); // Store the result stack
+
+                stackIndex = 1;
+
+                g = mazePanel.getGraphics();
+                mazePanel.paint(g); // Clear the panel
+
+                cellSize = Math.min(mazePanel.getWidth() / width, mazePanel.getHeight() / height); // Scale cells to fit the panel
+
+                drawBorders();
+            } else {
+                JOptionPane.showMessageDialog(null, "Make sure the width and height are both less than 50!", "", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Positive integers only!", "", JOptionPane.INFORMATION_MESSAGE);
@@ -193,8 +211,7 @@ public class Homepage extends javax.swing.JFrame {
     
     private void solveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveButtonActionPerformed
         // TODO add your handling code here:
-        try {                                   
-
+        try {      
             while (stackIndex < solutionStack.size() - 1) {
                 g.setColor(Color.BLUE);  // Set color for solution cells
 
@@ -205,13 +222,8 @@ public class Homepage extends javax.swing.JFrame {
                 g.fillRect(topLeftX, topLeftY, cellSize, cellSize); // Draw filled rectangle for each solution cell
                 
                 stackIndex++;
-                drawBorders();
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    
-                }
             }
+            drawBorders();
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Generate a maze first!", "", JOptionPane.INFORMATION_MESSAGE);
@@ -262,7 +274,6 @@ public class Homepage extends javax.swing.JFrame {
                 int topLeftX = cell.getX() * cellSize + 1;
                 int topLeftY = cell.getY() * cellSize + 1;
                 g.fillRect(topLeftX, topLeftY, cellSize, cellSize); // Draw filled rectangle for each solution cell
-
                 stackIndex--;  // Move back to the previous cell
                 drawBorders();
             } else {
@@ -272,6 +283,29 @@ public class Homepage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Generate a maze first!", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        // TODO add your handling code here:
+        try {   
+            stackIndex = 1;
+            while (stackIndex < solutionStack.size() - 1) {
+                g.setColor(Color.WHITE);  // Set color for solution cells
+
+                Cell cell = solutionStack.get(stackIndex);
+                
+                int topLeftX = cell.getX() * cellSize + 1;
+                int topLeftY = cell.getY() * cellSize + 1;
+                g.fillRect(topLeftX, topLeftY, cellSize, cellSize); // Draw filled rectangle for each solution cell
+                
+                stackIndex++;
+            }
+            drawBorders();
+            stackIndex = 1;
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Generate a maze first!", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_clearButtonActionPerformed
         
     private void drawBorders() {
         g.setColor(Color.GREEN);
@@ -344,6 +378,7 @@ public class Homepage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkbox;
+    private javax.swing.JButton clearButton;
     private javax.swing.JButton generateButton;
     private javax.swing.JTextField heightField;
     private javax.swing.JLabel heightLabel;
